@@ -1,0 +1,1 @@
+disabled={Math.ceil((this.state.totalResults)/18) <= this.state.page}
