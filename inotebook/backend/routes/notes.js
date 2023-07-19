@@ -79,4 +79,32 @@ router.put('/updatenote/:id', fetchuser, [
     }
 })
 
+
+// ROUTE-4 : LoggedIn users can delete note using : POST "api/notes/deletenote" :  Login required
+router.delete('/deletenote/:id', fetchuser, async (req, res) => {
+
+    try {
+        const {title,description,tag} = req.body;
+        
+        // If there are errors, return status 400 and error.
+        const error = validationResult(req);
+        if (!error.isEmpty()) {
+            return res.status(400).json({ errors: error.array() });
+        }
+
+        // Find the note to be updated and update it 
+        let note = await Note.findById(req.params.id);
+        if(!note && note.user.toString() !== req.user.id) {
+            return res.status(400).send("Please use correct Id");
+        }
+
+        note = await Note.findByIdAndDelete(req.params.id)
+        res.json({ "Success" : "Note has been deleted",note : note});
+    }
+    catch (err) {
+        console.error(err.message);
+        res.status(500).send("Some Error Occured.");
+    }
+})
+
 module.exports = router;
