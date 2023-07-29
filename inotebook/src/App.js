@@ -17,12 +17,14 @@ import About from './components/About';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import NoteState from './context/notes/NoteState';
+import Alert from './components/Alert';
 
 function App() {
   return (
     <NoteState>
         <HashRouter>
           <Navbar />
+          <Alert message="good day"/>
           <div className="container">
             <Routes>
               <Route exact path="/" element={<Home />} >  </Route>
