@@ -4,7 +4,8 @@
 2. concurrently : This is used so that we can use 'npm run start' and 'nodemon 
                   backend/index.js' using only 1 terminal. First install package and
                   then edit scripts in package.json .
-
+3. cors : we need to install this package in backend/index.js so that our browser can 
+          make API call.
 */
 
 import './App.css';
