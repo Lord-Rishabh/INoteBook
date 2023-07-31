@@ -22,11 +22,6 @@ const Notes = () => {
     const handleClick = (e) => {
         // This will not let page to reload.
         e.preventDefault();
-        try {
-            addNote(note.title, note.description, note.tag);
-        } catch (error) {
-            console.log(error);
-        }
     }
     const onChange = (e) => {
         setNotes({ ...note, [e.target.name]: e.target.value })
