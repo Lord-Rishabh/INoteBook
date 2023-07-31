@@ -13,19 +13,29 @@ const Notes = () => {
         getNotes();
     }, [])
 
-    const updateNotes = (currentNote) => {
+    const editNotes = (currentNote) => {
         ref.current.click();
-        setNotes({etitle : currentNote.title, edescription : currentNote.description , etag : currentNote.tag});
+        setNotes({id:currentNote._id, etitle : currentNote.title, edescription : currentNote.description , etag : currentNote.tag});
     }
-    const ref = useRef(null);
 
+    const ref = useRef(null);
+    const refClose_Update = useRef(null);
+    const refClose = useRef(null);
+    
     const handleClick = (e) => {
         // This will not let page to reload.
-        e.preventDefault();
+        e.preventDefault(); 
+        updateNote(note.id, note.etitle, note.edescription, note.etag);
+        refClose_Update.current.click();
+    }
+    const handleClose = (e) => {
+        e.preventDefault(); 
+        refClose.current.click();
     }
     const onChange = (e) => {
         setNotes({ ...note, [e.target.name]: e.target.value })
     }
+
 
     return (<>
 
@@ -59,8 +69,8 @@ const Notes = () => {
 
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" onClick={handleClick} className="btn btn-primary">Update Note</button>
+                        <button type="button" onClick={handleClose} ref={refClose} className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" disabled={note.etitle.length<3 || note.edescription.length<5} onClick={handleClick} ref={refClose_Update} className="btn btn-primary">Update Note</button>
                     </div>
                 </div>
             </div>
@@ -69,9 +79,11 @@ const Notes = () => {
         <AddNote />
         <div className='row my-3'>
             <h1>Your Notes</h1>
-
+            <div className="container mx-1">
+                {notes.length === 0 && 'No Notes to display.'}
+            </div>
             {notes.map((note) => {
-                return <NoteItem key={note._id} updateNotes={updateNotes} note={note} />;
+                return <NoteItem key={note._id} editNotes={editNotes} note={note} />;
             })}
         </div>
     </>
