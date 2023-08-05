@@ -15,10 +15,11 @@ router.post('/createuser', [
     body('password', 'Password must be 5 characters long').isLength({ min: 5 }),
 ], async (req, res) => {
 
+    let success = false;
     // If there are errors, return status 400 and error.
     const error = validationResult(req);
     if (!error.isEmpty()) {
-        return res.status(400).json({ errors: error.array() });
+        return res.status(400).json({success, errors: error.array() });
     }
 
     // Check whether the user with this email already exist.
@@ -27,7 +28,7 @@ router.post('/createuser', [
         // we need to write await because it is a promise.
         let user = await User.findOne({ email: req.body.email })
         if (user) {
-            return res.status(400).json({ error: "User with this email already exist." });
+            return res.status(400).json({ success, error: "User with this email already exist." });
         }
 
         // It is used to create salt that is added with password to make it secure
@@ -48,7 +49,8 @@ router.post('/createuser', [
         }
         
         const authToken = jwt.sign(data,JWT_SECRET);
-        res.json(authToken);
+        success = true; 
+        res.json({success,authToken});
     } 
     catch (err) {
         console.log(err);
@@ -62,6 +64,7 @@ router.post('/loginuser', [
     body('password', 'Password cannot be empty').exists(),
 ], async (req, res) => {
 
+    let success = false;
     // If there are errors, return status 400 and error.
     const error = validationResult(req);
     if (!error.isEmpty()) {
@@ -76,12 +79,14 @@ router.post('/loginuser', [
         // we need to write await because it is a promise.
         let user = await User.findOne({ email })
         if (!user) {
-            return res.status(400).json({ error: "Please enter correct login credentials" });
+            success = false;
+            return res.status(400).json({ success,error: "Please enter correct login credentials" });
         }
 
         const passwordCompare = await bcrypt.compare(password, user.password);
         if(!passwordCompare) {
-            return res.status(400).json({ error: "Please enter correct login credentials" });
+            success = false;
+            return res.status(400).json({ success , error: "Please enter correct login credentials" });
         }
         const data = {
             user : {
@@ -90,7 +95,8 @@ router.post('/loginuser', [
         }
 
         const authToken = jwt.sign(data,JWT_SECRET);
-        res.json(authToken);
+        success = true;
+        res.json({success,authToken});
     } 
     catch (err) {
         console.log(err);

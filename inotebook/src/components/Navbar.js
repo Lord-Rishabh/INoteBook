@@ -4,8 +4,8 @@ import { Link, useLocation } from 'react-router-dom'
 
 const Navbar = () => {
 
-// We can use this to do specific task when we are at a specific location.
-// We can access current page path name by 'location.pathname' .
+  // We can use this to do specific task when we are at a specific location.
+  // We can access current page path name by 'location.pathname' .
   let location = useLocation();
   React.useEffect(() => {
     // Google Analytics
@@ -23,18 +23,22 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-              {/* Here we are using useLocation to add a class active in current page. */}
-                <Link className={`nav-link ${location.pathname === "/" ? "active" : "" }`} aria-current="page" to="/">Home</Link>
+                {/* Here we are using useLocation to add a class active in current page. */}
+                <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/">Home</Link>
               </li>
               <li className="nav-item">
-              {/* Here we are using useLocation to add a class active in current page. */}
-                <Link className={`nav-link ${location.pathname === "/about" ? "active" : "" }`} aria-current="page" to="/about">About</Link>
+                {/* Here we are using useLocation to add a class active in current page. */}
+                <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} aria-current="page" to="/about">About</Link>
               </li>
             </ul>
+            <form className="d-flex" role="search">
+              <Link className="btn btn-primary mx-2  " to="/login" role="button">Login</Link>
+              <Link className="btn btn-primary" to="/signup" role="button">SignUp</Link>
+            </form>
           </div>
         </div>
       </nav>
-      <br /><br />
+      <br /><br /> <br/>
     </div>
   )
 }
