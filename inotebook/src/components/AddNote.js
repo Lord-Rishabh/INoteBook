@@ -7,6 +7,7 @@ const AddNote = () => {
 
     const [note,setNotes] = useState({title : "" , description : "" , tag : ""})
 
+    
     const handleClick = (e) => {
         // This will not let page to reload.
         e.preventDefault();
