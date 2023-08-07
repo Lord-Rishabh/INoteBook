@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
 
@@ -25,7 +26,7 @@ const Login = () => {
             navigate("/");
         }
         else {
-            alert("Incorrect Credentials!");
+            alert("Invalid Credentials");
         }
     }
 

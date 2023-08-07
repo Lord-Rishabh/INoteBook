@@ -4,7 +4,7 @@ import noteContext from '../context/notes/noteContext';
 const NoteItem = (props) => {
 
   const context = useContext(noteContext);
-  const [notes, addNote, deleteNote, updateNote] = context;
+  const {deleteNote} = context;
   const { note , editNotes } = props;
   const handleClick = () => {
     deleteNote(note._id);

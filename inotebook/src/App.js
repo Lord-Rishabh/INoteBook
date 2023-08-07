@@ -23,11 +23,13 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 
 function App() {
+
+
   return (
-    <NoteState>
+      <NoteState>
         <HashRouter>
           <Navbar />
-          {/* <Alert message="good day"/> */}
+          <Alert/>
           <div className="container">
             <Routes>
               <Route exact path="/" element={<Home />} >  </Route>
@@ -37,7 +39,7 @@ function App() {
             </Routes>
           </div>
         </HashRouter>
-    </NoteState>
+      </NoteState>
   );
 }
 
