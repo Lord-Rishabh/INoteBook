@@ -1,8 +1,10 @@
 // Use 'rafce' for this snippet
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link , useLocation , useNavigate } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = (props) => {
+
+  let navigate = useNavigate();
 
   // We can use this to do specific task when we are at a specific location.
   // We can access current page path name by 'location.pathname' .
@@ -11,6 +13,12 @@ const Navbar = () => {
     // Google Analytics
     //  console.log(location.pathname);
   }, [location]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    props.showAlert("Logged out Successfully" , "success");
+    navigate("/login");
+  }
 
   return (
     <div>
@@ -31,14 +39,14 @@ const Navbar = () => {
                 <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} aria-current="page" to="/about">About</Link>
               </li>
             </ul>
-            <form className="d-flex" role="search">
+            {!localStorage.getItem('token') ? <form className="d-flex" role="search">
               <Link className="btn btn-primary mx-2  " to="/login" role="button">Login</Link>
               <Link className="btn btn-primary" to="/signup" role="button">SignUp</Link>
-            </form>
+            </form> : <button onClick={handleLogout} className='btn btn-primary mx-3'>Logout</button>}
           </div>
         </div>
       </nav>
-      <br /><br /> <br/>
+      <br /><br /> 
     </div>
   )
 }

@@ -4,14 +4,18 @@ import NoteItem from './NoteItem';
 import AddNote from './AddNote'
 import { useNavigate } from 'react-router-dom';
 
-const Notes = () => {
+const Notes = (props) => {
 
     const context = useContext(noteContext);
     const {notes, updateNote, getNotes} = context;
     const [note,setNotes] = useState({etitle : "" , edescription : "" , etag : "default"})
+    
+    // This is used to navigate the user to a given component.
     const navigate = useNavigate();
 
     useEffect(() => {
+
+        // If token is not NULL then call function getNotes
         if(localStorage.getItem('token'))
             getNotes();
         else
@@ -33,6 +37,7 @@ const Notes = () => {
         e.preventDefault(); 
         updateNote(note.id, note.etitle, note.edescription, note.etag);
         refClose_Update.current.click();
+        props.showAlert("Updated Successfully" , "success");
     }
     const handleClose = (e) => {
         e.preventDefault(); 
@@ -82,14 +87,14 @@ const Notes = () => {
             </div>
         </div>
 
-        <AddNote />
+        <AddNote showAlert={props.showAlert} />
         <div className='row my-3'>
             <h1>Your Notes</h1>
             <div className="container mx-1">
                 {notes.length === 0 && 'No Notes to display.'}
             </div>
             {notes.map((note) => {
-                return <NoteItem key={note._id} editNotes={editNotes} note={note} />;
+                return <NoteItem key={note._id} editNotes={editNotes} showAlert={props.showAlert} note={note} />;
             })}
         </div>
     </>
