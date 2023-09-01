@@ -14,7 +14,7 @@ const News = (props) => {
   // async keyword is  before a function makes the function return a promise in JavaScript.
   const updateNews = async () => {
     props.setProgress(10);
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=5`;
+    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=7`;
     // We are using loading so that when loading data a 'loading spinner' will be shown.
     setLoading( true );
     /* await keyword makes the function pause the execution and wait for a resolved promise
@@ -57,7 +57,7 @@ const News = (props) => {
 
   const fetchMoreData = async () => {
 
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=5`;
+    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${props.category}&apiKey=${props.apiKey}&page=${page + 1}&pageSize=7`;
 // We set page + 1 after getting url because it will take some time to set asynchronous function.
     setPage(page + 1);
     let data = await fetch(url);
@@ -68,7 +68,7 @@ const News = (props) => {
 
     return (<>
 
-      <h1 className='text-center' style={{ margin: '35px', marginTop: '90px' }}> NewsByRishabh - Top {props.category.slice(0, 1).toUpperCase() + props.category.slice(1)} Headline</h1>
+      <h1 className='text-center' style={{ margin: '35px', marginTop: '90px' }}> Todays's Top {props.category.slice(0, 1).toUpperCase() + props.category.slice(1)} Headlines : Daily Dose of News</h1>
      
       {/* This will show loading spinner gif if our state is loading. */}
       {loading && <Spinner />}
@@ -81,7 +81,7 @@ const News = (props) => {
         <div className="container">
           <div className="row">
             {articles.map((element) => {
-              return <div className="col-md-4" key={element.url}>
+              return <div className="col-md-3" key={element.url}>
                 <NewsItem source={element.source.name} author={element.author} date={element.publishedAt} newsUrl={element.url} title={element.title} description={element.description} imageUrl={element.urlToImage} />
               </div>
             })}
@@ -140,7 +140,7 @@ export default class News extends Component {
   // async keyword is  before a function makes the function return a promise in JavaScript.
   updateNews = async () => {
     props.setProgress(0);
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${props.category}&apiKey=${props.apiKey}&page=${this.state.page}&pageSize=5`;
+    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${props.category}&apiKey=${props.apiKey}&page=${this.state.page}&pageSize=7`;
     // We are using loading so that when loading data a 'loading spinner' will be shown.
     this.setState({ loading: true });
     props.setProgress(10);
@@ -182,7 +182,7 @@ export default class News extends Component {
   fetchMoreData = async () => {
 
     this.setState({ page: this.state.page + 1 });
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${props.category}&apiKey=${props.apiKey}&page=${this.state.page}&pageSize=5`;
+    let url = `https://newsapi.org/v2/top-headlines?country=in&category=${props.category}&apiKey=${props.apiKey}&page=${this.state.page}&pageSize=7`;
     let data = await fetch(url);
     let parsedData = await data.json();
     this.setState({

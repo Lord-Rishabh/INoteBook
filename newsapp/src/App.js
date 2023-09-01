@@ -27,7 +27,7 @@ const App = () => {
           <Navbar />
           <Routes>
 
-            <Route path="/" element={<News apiKey={apiKey} setProgress={setProgress} key="home" category='general' />} > </Route>
+            <Route path="/" element={<News apiKey={apiKey} setProgress={setProgress} key="home" category='' />} > </Route>
 
             <Route exact path="/business" element={<News apiKey={apiKey} setProgress={setProgress} key="business" category='business' />}> </Route>
             <Route exact path="/entertainment" element={<News apiKey={apiKey} setProgress={setProgress} key="entertainment" category='entertainment' />}> </Route>
